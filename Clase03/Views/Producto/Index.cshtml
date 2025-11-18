@@ -1,0 +1,56 @@
+﻿@model List<Clase03.Models.Producto>
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+    var terminoBusqueda = ViewData["TerminoBusqueda"] as string;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="terminoBusqueda" value="@terminoBusqueda" class="form-control" placeholder="Buscar producto..." />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Limpiar</a>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Nuevo Producto</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Vendedor</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var producto in Model)
+        {
+            <tr>
+                <td>@producto.ProductoId</td>
+                <td>@producto.Codigo</td>
+                <td>@producto.Nombre</td>
+                <td>@producto.Categoria</td>
+                <td>@producto.Precio.ToString("C")</td>
+                <td>@producto.Stock</td>
+                <td>@(string.IsNullOrWhiteSpace(producto.VendedorNombre) ? "Sin asignar" : producto.VendedorNombre)</td>
+                <td>@(producto.EsActivo ? "Sí" : "No")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@producto.ProductoId">Ver</a> |
+                    <a asp-action="Edit" asp-route-id="@producto.ProductoId">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@producto.ProductoId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

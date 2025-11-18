@@ -1,0 +1,23 @@
+CREATE OR ALTER PROCEDURE sp_Vendedor_Listar
+AS
+BEGIN
+    SELECT VendedorId, Nombre, EsActivo
+    FROM Vendedores;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Producto_Listar
+AS
+BEGIN
+    SELECT 
+        p.ProductoId,
+        p.Codigo,
+        p.Nombre,
+        p.Categoria,
+        p.Precio,
+        p.Stock,
+        p.VendedorId,
+        p.EsActivo
+    FROM Productos p;
+END
+GO
